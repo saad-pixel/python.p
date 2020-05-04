@@ -1,0 +1,53 @@
+language = "pygame"
+
+pygame.image.load(greenhillzone.png)
+pygame.image.load(FondSonic.png)
+pygame.image.load(sonic_spritesheet.png)
+
+while gameOn:
+ 
+    dt = timer.tick() / 1000
+    player.set_attr("tick", dt)
+ 
+    for event in pg.event.get():
+ 
+        if event.type == QUIT:
+            gameOn = False
+        if event.type == MOUSEMOTION:
+ 
+            player.set_attr("mouse", list(pg.mouse.get_pos()))
+ 
+        if event.type == KEYDOWN:
+ 
+            if event.key == player.get_attr("UP"):
+ 
+                player.move(vy=-player.get_attr("speed"))
+ 
+            if event.key == player.get_attr("DOWN"):
+ 
+                player.move(vy=player.get_attr("speed"))
+ 
+            if event.key == player.get_attr("LEFT"):
+ 
+                player.move(vx=-player.get_attr("speed"))
+ 
+            if event.key == player.get_attr("RIGHT"):
+ 
+                player.move(vx=player.get_attr("speed"))
+ 
+            if event.key == player.get_attr("R1"):
+ 
+                spell = Spell(name = "spell_1", direction = player.get_attr("direction"), position = player.get_attr("position").copy(),
+                                 tick = player.get_attr("tick"))
+ 
+                groupe = cooldown(spell, groupe)
+ 
+ 
+    rect_list = update_sprite(groupe, screen)
+ 
+    pg.display.update(rect_list)
+ 
+    clock.tick(50)
+
+
+run = " "
